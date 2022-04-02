@@ -1,4 +1,4 @@
-package baseballscoremanagement.api;
+package com.baseballscoremanagement.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
