@@ -1,6 +1,7 @@
-package main.com.baseballscoremanagement.api.application;
+package com.baseballscoremanagement.api.application;
 
-import main.com.baseballscoremanagement.api.domain.TeamSort;
+
+import com.baseballscoremanagement.api.domain.sort.TeamSort;
 
 public interface TeamsService {
 

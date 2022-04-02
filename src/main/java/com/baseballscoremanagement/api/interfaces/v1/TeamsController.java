@@ -1,7 +1,7 @@
-package main.com.baseballscoremanagement.api.interfaces;
+package com.baseballscoremanagement.api.interfaces.v1;
 
-import main.com.baseballscoremanagement.api.application.TeamsService;
-import main.com.baseballscoremanagement.api.domain.TeamSort;
+import com.baseballscoremanagement.api.application.TeamsService;
+import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,9 +29,9 @@ public class TeamsController {
    */
   @GetMapping("/teams")
   public String getTeams(
-    @RequestParam(value = "sort", required = false, defaultValue = "desc_games") TeamSort sort,
-    @RequestParam(value = "start", required = false, defaultValue = "0") int start,
-    @RequestParam(value = "results", required = false, defaultValue = "3") int results
+    @RequestParam(value = "sort", required = false, defaultValue = "desc_games") final TeamSort sort,
+    @RequestParam(value = "start", required = false, defaultValue = "0") final int start,
+    @RequestParam(value = "results", required = false, defaultValue = "3") final int results
   ){
     return this.teamsService.getTeams(sort, start, results);
   }

@@ -1,4 +1,4 @@
-package main.com.baseballscoremanagement.api.domain;
+package com.baseballscoremanagement.api.domain.sort;
 
 public enum TeamSort {
   DESC_GAMES("desc_games"),
