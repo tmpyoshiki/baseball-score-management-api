@@ -1,6 +1,6 @@
 package com.baseballscoremanagement.api.interfaces.v1;
 
-import com.baseballscoremanagement.api.application.impl.TeamsService;
+import com.baseballscoremanagement.api.application.TeamsService;
 import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import org.springframework.web.bind.annotation.GetMapping;
