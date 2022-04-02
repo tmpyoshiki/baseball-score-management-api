@@ -1,7 +1,10 @@
 package com.baseballscoremanagement.api.application;
 
 
+import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.domain.sort.TeamSort;
+
+import java.util.List;
 
 public interface TeamsService {
 
@@ -10,7 +13,7 @@ public interface TeamsService {
    * @param sort ソート順
    * @param start 取得開始位置
    * @param results 取得数
-   * @return TODO: とりあえずstringにしているがあとでちゃんと定義
+   * @return チーム一覧
    */
-  String getTeams(final TeamSort sort, final int start, final int results);
+  List<Team> getTeamList(final TeamSort sort, final int start, final int results);
 }

@@ -1,12 +1,21 @@
 package com.baseballscoremanagement.api.application.impl;
 
 import com.baseballscoremanagement.api.application.TeamsService;
+import com.baseballscoremanagement.api.domain.model.Team;
+import com.baseballscoremanagement.api.domain.repository.TeamsRepository;
 import com.baseballscoremanagement.api.domain.sort.TeamSort;
 
+import java.util.List;
+
 public class TeamsServiceImpl implements TeamsService {
+  private final TeamsRepository teamsRepository;
+
+  public TeamsServiceImpl(final TeamsRepository teamsRepository) {
+    this.teamsRepository = teamsRepository;
+  }
 
   @Override
-  public String getTeams(final TeamSort sort, final int start, final int results) {
-    return null;
+  public List<Team> getTeamList(final TeamSort sort, final int start, final int results) {
+    return this.teamsRepository.getTeamList(sort, start, results).collectList().block();
   }
 }
