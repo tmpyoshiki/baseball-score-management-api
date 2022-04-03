@@ -10,7 +10,13 @@ import org.springframework.data.annotation.Id;
 @Getter
 @AllArgsConstructor
 public class TeamResponse {
+  /**
+   * チームID
+   */
   @Id
   private int id;
+  /**
+   * チーム名
+   */
   private String name;
 }

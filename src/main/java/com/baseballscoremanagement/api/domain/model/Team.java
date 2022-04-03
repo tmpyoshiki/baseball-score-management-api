@@ -12,6 +12,12 @@ import lombok.Getter;
 @EqualsAndHashCode
 @Getter
 public class Team {
+  /**
+   * チームのID
+   */
   private int id;
+  /**
+   * チーム名
+   */
   private final String name;
 }

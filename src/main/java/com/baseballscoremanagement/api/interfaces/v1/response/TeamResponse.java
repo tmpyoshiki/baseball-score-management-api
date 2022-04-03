@@ -8,9 +8,15 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public class TeamResponse {
+    /**
+     * チームID
+     */
     @JsonProperty("id")
     private int id;
 
+    /**
+     * チーム名
+     */
     @JsonProperty("name")
     private final String name;
 }

@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
  */
 public class TeamListResponse {
 
+  /**
+   * チーム一覧
+   */
   @JsonProperty("team_list")
   private final List<TeamResponse> teamListResponse;
 
