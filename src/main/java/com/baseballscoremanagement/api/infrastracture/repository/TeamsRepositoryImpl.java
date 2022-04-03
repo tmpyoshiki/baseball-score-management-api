@@ -4,10 +4,10 @@ import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.domain.repository.TeamsRepository;
 import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import com.baseballscoremanagement.api.infrastracture.library.TeamsMySqlLibrary;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-@Repository
+@Component
 public class TeamsRepositoryImpl implements TeamsRepository {
   private final TeamsMySqlLibrary teamsMySqlLibrary;
 
