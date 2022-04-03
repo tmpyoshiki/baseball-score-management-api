@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
+/**
+ * MySQLから取得したチームを格納するDTO
+ */
 @Getter
 @AllArgsConstructor
 public class TeamResponse {

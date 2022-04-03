@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+/**
+ * チーム情報を格納するDTO
+ */
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter

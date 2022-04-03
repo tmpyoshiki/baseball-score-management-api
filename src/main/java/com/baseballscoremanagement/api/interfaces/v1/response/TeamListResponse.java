@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * チーム一覧取得で返すレスポンス用のDTO
+ */
 public class TeamListResponse {
 
   @JsonProperty("team_list")
