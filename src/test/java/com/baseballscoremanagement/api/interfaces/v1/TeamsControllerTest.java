@@ -30,7 +30,7 @@ class TeamsControllerTest {
   @MockBean
   private TeamsService teamsService;
 
-  final ObjectMapper mapper = new ObjectMapper();
+  private final ObjectMapper mapper = new ObjectMapper();;
 
   @Nested
   class getTeamList {
