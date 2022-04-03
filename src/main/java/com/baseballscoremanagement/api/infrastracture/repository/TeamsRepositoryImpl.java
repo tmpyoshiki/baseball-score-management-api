@@ -17,6 +17,7 @@ public class TeamsRepositoryImpl implements TeamsRepository {
 
   @Override
   public Flux<Team> getTeamList(final TeamSort teamSort, int start, int results) {
+    // TODO: sortも反映させる
     final var response = this.teamsMySqlLibrary.findTeams(start, results);
     return response.map(res -> new Team(res.getId(), res.getName()));
   }
