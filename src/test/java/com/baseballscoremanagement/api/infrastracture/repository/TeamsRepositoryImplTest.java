@@ -34,8 +34,9 @@ class TeamsRepositoryImplTest {
       final var actualTeamList = teamsRepositoryImpl.getTeamList(TeamSort.DESC_GAMES, 1, 5);
 
       StepVerifier.create(actualTeamList).assertNext(team -> {
-        Assertions.assertEquals(expectTeam, team);
-      });
+        Assertions.assertEquals(expectTeam.getId(), team.getId());
+        Assertions.assertEquals(expectTeam.getName(), team.getName());
+      }).verifyComplete();
       Mockito.verify(teamsMySqlLibrary, Mockito.times(1)).findTeams(1, 5);
     }
   }
