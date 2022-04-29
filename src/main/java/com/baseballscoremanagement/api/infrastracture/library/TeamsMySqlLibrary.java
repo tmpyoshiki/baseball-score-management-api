@@ -15,6 +15,7 @@ public interface TeamsMySqlLibrary extends ReactiveCrudRepository<TeamResponse, 
    * @param results 取得数
    * @return {@link TeamResponse}
    */
-  @Query("SELECT * FROM TEAMS LIMIT :results OFFSET :start")
+  @Query("SELECT * FROM TEAMS LIMIT :results OFFSET :start;")
   Flux<TeamResponse> findTeams(int start, int results);
+
 }
