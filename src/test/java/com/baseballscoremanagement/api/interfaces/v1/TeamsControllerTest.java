@@ -30,7 +30,7 @@ class TeamsControllerTest {
   @MockBean
   private TeamsService teamsService;
 
-  private final ObjectMapper mapper = new ObjectMapper();;
+  private final ObjectMapper mapper = new ObjectMapper();
 
   @Nested
   class getTeamList {
@@ -38,13 +38,13 @@ class TeamsControllerTest {
     void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
       final var teamList = List.of(new Team(1, "テストチーム"));
       final String expectResponseJson = mapper.writeValueAsString(new TeamListResponse(teamList));
-      Mockito.doReturn(teamList).when(teamsService).getTeamList(TeamSort.DESC_GAMES, 1, 3);
+      Mockito.doReturn(teamList).when(teamsService).getTeamList(TeamSort.DESC_GAMES, 0, 3);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/v1/teams"))
           .andExpect(MockMvcResultMatchers.status().isOk())
           .andExpect(content().json(expectResponseJson));
 
-      Mockito.verify(teamsService, Mockito.times(1)).getTeamList(TeamSort.DESC_GAMES, 1, 3);
+      Mockito.verify(teamsService, Mockito.times(1)).getTeamList(TeamSort.DESC_GAMES, 0, 3);
     }
   }
 

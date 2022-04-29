@@ -31,7 +31,7 @@ public class TeamsController {
   @GetMapping("/teams")
   public TeamListResponse getTeamList(
     @RequestParam(value = "sort", defaultValue = "DESC_GAMES") final String sort,
-    @RequestParam(value = "start", defaultValue = "1") final int start,
+    @RequestParam(value = "start", defaultValue = "0") final int start,
     @RequestParam(value = "results", defaultValue = "3") final int results
   ){
     final var teamSort = TeamSort.valueOf(sort);

@@ -37,7 +37,6 @@ class TeamsMySqlLibraryTest {
 
   @Test
   void findTeams() {
-    final var test = this.teamsMySqlLibrary.findAll().log();
     final var findTeamsFlux = this.teamsMySqlLibrary.findTeams(0,3).log();
     StepVerifier.create(findTeamsFlux).assertNext(teamResponse -> {
       Assertions.assertEquals(1, teamResponse.getId());
