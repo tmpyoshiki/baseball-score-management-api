@@ -40,8 +40,7 @@ class GamesServiceImplTest {
       Mockito.doReturn(actualGameFlux).when(gamesRepository).getGameListByTeamId(1, 0, 5);
 
       final var actualGameList = gamesServiceImpl.getGameListByTeamId(1, 0, 5);
-      assertEquals(expectGameList.size(), actualGameList.size());
-      IntStream.range(0,2).forEach(i -> assertEquals(expectGameList.get(i), actualGameList.get(i)));
+      assertEquals(expectGameList, actualGameList);
       Mockito.verify(gamesRepository, Mockito.times(1)).getGameListByTeamId(1, 0, 5);
     }
   }

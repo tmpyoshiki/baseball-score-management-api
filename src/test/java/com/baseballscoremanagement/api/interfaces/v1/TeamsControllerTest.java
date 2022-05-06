@@ -44,7 +44,9 @@ class TeamsControllerTest {
   class getTeamList {
     @Test
     void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
-      final var teamList = List.of(new Team(1, "テストチーム"));
+      final List<Team> teamList = IntStream.range(0,3)
+          .mapToObj(i -> new Team(i, "テストチーム" + i))
+          .collect(Collectors.toList());
       final String expectResponseJson = mapper.writeValueAsString(new TeamListResponse(teamList));
       Mockito.doReturn(teamList).when(teamsService).getTeamList(0, 3);
 

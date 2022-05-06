@@ -1,9 +1,6 @@
 package com.baseballscoremanagement.api.infrastracture.library;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 import org.springframework.r2dbc.core.DatabaseClient;
@@ -35,12 +32,15 @@ class TeamsMySqlLibraryTest {
     this.client.sql("DELETE FROM TEAMS;").then().block();
   }
 
-  @Test
-  void findTeams() {
-    final var findTeamsFlux = this.teamsMySqlLibrary.findTeams(0,3).log();
-    StepVerifier.create(findTeamsFlux).assertNext(teamResponse -> {
-      Assertions.assertEquals(1, teamResponse.getId());
-      Assertions.assertEquals("テスト", teamResponse.getName());
-    }).expectNextCount(0).verifyComplete();
+  @Nested
+  class findTeams () {
+    @Test
+    void 指定IDの試合が取得できること() {
+      final var findTeamsFlux = teamsMySqlLibrary.findTeams(0,1).log();
+      StepVerifier.create(findTeamsFlux).assertNext(teamResponse -> {
+        Assertions.assertEquals(1, teamResponse.getId());
+        Assertions.assertEquals("テスト", teamResponse.getName());
+      }).expectNextCount(0).verifyComplete();
+    }
   }
 }

@@ -14,6 +14,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @ExtendWith(MockitoExtension.class)
 class TeamsRepositoryImplTest {
 
@@ -27,16 +31,25 @@ class TeamsRepositoryImplTest {
   class getTeamList {
     @Test
     void 取得した結果を正常に返すことができること() {
-      final var expectTeam = new Team(1, "テストチーム");
-      final var teamResponse = Flux.just(new TeamResponse(1, "テストチーム"));
-      Mockito.doReturn(teamResponse).when(teamsMySqlLibrary).findTeams(1, 5);
-      final var actualTeamList = teamsRepositoryImpl.getTeamList(1, 5);
+      final List<Team> expectTeamList
+          = IntStream.range(0,2)
+          .mapToObj(i -> new Team(i, "テストチーム" + i))
+          .collect(Collectors.toList());
 
-      StepVerifier.create(actualTeamList).assertNext(team -> {
-        Assertions.assertEquals(expectTeam.getId(), team.getId());
-        Assertions.assertEquals(expectTeam.getName(), team.getName());
-      }).expectNextCount(0).verifyComplete();
-      Mockito.verify(teamsMySqlLibrary, Mockito.times(1)).findTeams(1, 5);
+      final List<TeamResponse> teamResponseList
+          = IntStream.range(0,2)
+          .mapToObj(i -> new TeamResponse(i, "テストチーム" + i))
+          .collect(Collectors.toList());
+
+      Mockito.doReturn(teamResponseList).when(teamsMySqlLibrary).findTeams(0, 2);
+      final var actualTeamList = teamsRepositoryImpl.getTeamList(0, 2);
+
+      StepVerifier
+          .create(actualTeamList)
+          .assertNext(team -> Assertions.assertEquals(expectTeamList.get(0), team))
+          .assertNext(team -> Assertions.assertEquals(expectTeamList.get(1), team))
+          .expectNextCount(0).verifyComplete();
+      Mockito.verify(teamsMySqlLibrary, Mockito.times(1)).findTeams(0, 2);
     }
   }
 }
