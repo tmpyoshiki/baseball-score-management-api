@@ -36,10 +36,8 @@ class TeamsRepositoryImplTest {
           .mapToObj(i -> new Team(i, "テストチーム" + i))
           .collect(Collectors.toList());
 
-      final List<TeamResponse> teamResponseList
-          = IntStream.range(0,2)
-          .mapToObj(i -> new TeamResponse(i, "テストチーム" + i))
-          .collect(Collectors.toList());
+      final Flux<TeamResponse> teamResponseList
+          = Flux.range(0,2).map(i -> new TeamResponse(i, "テストチーム" + i));
 
       Mockito.doReturn(teamResponseList).when(teamsMySqlLibrary).findTeams(0, 2);
       final var actualTeamList = teamsRepositoryImpl.getTeamList(0, 2);
