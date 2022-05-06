@@ -5,7 +5,10 @@ import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.interfaces.v1.response.TeamResponse;
 import com.baseballscoremanagement.api.interfaces.v1.response.field.FieldResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 
@@ -40,12 +43,16 @@ public class GameResponse {
   /**
    * 試合開始時刻
    */
+  @JsonSerialize(using = LocalDateTimeSerializer.class)
+  @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
   @JsonProperty("start_date_time")
   private final LocalDateTime startDateTime;
 
   /**
    * 試合終了時刻
    */
+  @JsonSerialize(using = LocalDateTimeSerializer.class)
+  @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
   @JsonProperty("end_date_time")
   private final LocalDateTime endDateTime;
 
