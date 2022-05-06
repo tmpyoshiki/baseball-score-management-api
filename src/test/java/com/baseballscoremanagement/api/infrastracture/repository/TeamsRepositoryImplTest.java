@@ -1,7 +1,6 @@
 package com.baseballscoremanagement.api.infrastracture.repository;
 
 import com.baseballscoremanagement.api.domain.model.Team;
-import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import com.baseballscoremanagement.api.infrastracture.library.TeamsMySqlLibrary;
 import com.baseballscoremanagement.api.infrastracture.response.TeamResponse;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +30,7 @@ class TeamsRepositoryImplTest {
       final var expectTeam = new Team(1, "テストチーム");
       final var teamResponse = Flux.just(new TeamResponse(1, "テストチーム"));
       Mockito.doReturn(teamResponse).when(teamsMySqlLibrary).findTeams(1, 5);
-      final var actualTeamList = teamsRepositoryImpl.getTeamList(TeamSort.DESC_GAMES, 1, 5);
+      final var actualTeamList = teamsRepositoryImpl.getTeamList(1, 5);
 
       StepVerifier.create(actualTeamList).assertNext(team -> {
         Assertions.assertEquals(expectTeam.getId(), team.getId());

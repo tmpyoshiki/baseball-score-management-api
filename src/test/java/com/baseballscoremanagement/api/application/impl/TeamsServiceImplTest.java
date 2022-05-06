@@ -2,7 +2,6 @@ package com.baseballscoremanagement.api.application.impl;
 
 import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.domain.repository.TeamsRepository;
-import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,10 +28,10 @@ class TeamsServiceImplTest {
     @Test
     void 取得した結果を正常に返すことができること() {
       final var expectTeam = new Team(1, "テストチーム");
-      Mockito.doReturn(Flux.just(expectTeam)).when(teamsRepository).getTeamList(TeamSort.DESC_GAMES, 1, 5);
-      final var actualTeamList = teamsServiceImpl.getTeamList(TeamSort.DESC_GAMES, 1, 5);
+      Mockito.doReturn(Flux.just(expectTeam)).when(teamsRepository).getTeamList(1, 5);
+      final var actualTeamList = teamsServiceImpl.getTeamList(1, 5);
       Assertions.assertEquals(List.of(expectTeam), actualTeamList);
-      Mockito.verify(teamsRepository, Mockito.times(1)).getTeamList(TeamSort.DESC_GAMES, 1, 5);
+      Mockito.verify(teamsRepository, Mockito.times(1)).getTeamList(1, 5);
     }
   }
 }
