@@ -3,7 +3,7 @@ package com.baseballscoremanagement.api.interfaces.v1;
 import com.baseballscoremanagement.api.application.GamesService;
 import com.baseballscoremanagement.api.application.TeamsService;
 import com.baseballscoremanagement.api.interfaces.v1.response.game.GameListResponse;
-import com.baseballscoremanagement.api.interfaces.v1.response.TeamListResponse;
+import com.baseballscoremanagement.api.interfaces.v1.response.team.TeamListResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

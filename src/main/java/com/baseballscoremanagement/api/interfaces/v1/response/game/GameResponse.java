@@ -3,7 +3,7 @@ package com.baseballscoremanagement.api.interfaces.v1.response.game;
 import com.baseballscoremanagement.api.domain.model.Field;
 import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
-import com.baseballscoremanagement.api.interfaces.v1.response.TeamResponse;
+import com.baseballscoremanagement.api.interfaces.v1.response.team.TeamResponse;
 import com.baseballscoremanagement.api.interfaces.v1.response.field.FieldResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
