@@ -33,7 +33,7 @@ class TeamsMySqlLibraryTest {
   }
 
   @Nested
-  class findTeams () {
+  class findTeams {
     @Test
     void 指定IDの試合が取得できること() {
       final var findTeamsFlux = teamsMySqlLibrary.findTeams(0,1).log();
