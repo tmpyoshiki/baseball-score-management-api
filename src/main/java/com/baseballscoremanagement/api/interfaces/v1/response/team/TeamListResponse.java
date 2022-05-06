@@ -1,4 +1,4 @@
-package com.baseballscoremanagement.api.interfaces.v1.response;
+package com.baseballscoremanagement.api.interfaces.v1.response.team;
 
 import com.baseballscoremanagement.api.domain.model.Team;
 import com.fasterxml.jackson.annotation.JsonProperty;

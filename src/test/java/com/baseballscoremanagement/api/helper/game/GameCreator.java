@@ -5,6 +5,9 @@ import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GameCreator {
   /**
@@ -19,5 +22,16 @@ public class GameCreator {
     final var startDateTime = LocalDateTime.of(2000, 1,1,12,0);
     final var endDateTime = LocalDateTime.of(2000, 1,1,14,0);
     return new Game(id, firstTeam, secondTeam, field, startDateTime, endDateTime);
+  }
+
+  /**
+   * テスト用のGameのリストを作成する
+   * @param length リストの長さ
+   * @return Gameのリスト
+   */
+  public static List<Game> createGameList (final int length) {
+    return IntStream.range(0,2)
+        .mapToObj(GameCreator::createGame)
+        .collect(Collectors.toList());
   }
 }

@@ -1,7 +1,6 @@
 package com.baseballscoremanagement.api.infrastracture.repository;
 
 import com.baseballscoremanagement.api.domain.model.Team;
-import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import com.baseballscoremanagement.api.infrastracture.library.TeamsMySqlLibrary;
 import com.baseballscoremanagement.api.infrastracture.response.TeamResponse;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +13,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @ExtendWith(MockitoExtension.class)
 class TeamsRepositoryImplTest {
@@ -28,16 +31,23 @@ class TeamsRepositoryImplTest {
   class getTeamList {
     @Test
     void 取得した結果を正常に返すことができること() {
-      final var expectTeam = new Team(1, "テストチーム");
-      final var teamResponse = Flux.just(new TeamResponse(1, "テストチーム"));
-      Mockito.doReturn(teamResponse).when(teamsMySqlLibrary).findTeams(1, 5);
-      final var actualTeamList = teamsRepositoryImpl.getTeamList(TeamSort.DESC_GAMES, 1, 5);
+      final List<Team> expectTeamList
+          = IntStream.range(0,2)
+          .mapToObj(i -> new Team(i, "テストチーム" + i))
+          .collect(Collectors.toList());
 
-      StepVerifier.create(actualTeamList).assertNext(team -> {
-        Assertions.assertEquals(expectTeam.getId(), team.getId());
-        Assertions.assertEquals(expectTeam.getName(), team.getName());
-      }).expectNextCount(0).verifyComplete();
-      Mockito.verify(teamsMySqlLibrary, Mockito.times(1)).findTeams(1, 5);
+      final Flux<TeamResponse> teamResponseList
+          = Flux.range(0,2).map(i -> new TeamResponse(i, "テストチーム" + i));
+
+      Mockito.doReturn(teamResponseList).when(teamsMySqlLibrary).findTeams(0, 2);
+      final var actualTeamList = teamsRepositoryImpl.getTeamList(0, 2);
+
+      StepVerifier
+          .create(actualTeamList)
+          .assertNext(team -> Assertions.assertEquals(expectTeamList.get(0), team))
+          .assertNext(team -> Assertions.assertEquals(expectTeamList.get(1), team))
+          .expectNextCount(0).verifyComplete();
+      Mockito.verify(teamsMySqlLibrary, Mockito.times(1)).findTeams(0, 2);
     }
   }
 }

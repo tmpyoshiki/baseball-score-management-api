@@ -18,5 +18,5 @@ public class TeamResponse {
   /**
    * チーム名
    */
-  private String name;
+  private final String name;
 }

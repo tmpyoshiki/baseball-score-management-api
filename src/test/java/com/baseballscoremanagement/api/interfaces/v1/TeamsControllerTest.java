@@ -4,9 +4,7 @@ import com.baseballscoremanagement.api.application.GamesService;
 import com.baseballscoremanagement.api.application.TeamsService;
 import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
-import com.baseballscoremanagement.api.domain.sort.TeamSort;
-import com.baseballscoremanagement.api.helper.game.GameCreator;
-import com.baseballscoremanagement.api.interfaces.v1.response.TeamListResponse;
+import com.baseballscoremanagement.api.interfaces.v1.response.team.TeamListResponse;
 import com.baseballscoremanagement.api.interfaces.v1.response.game.GameListResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Nested;
@@ -25,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.baseballscoremanagement.api.helper.game.GameCreator.createGameList;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,15 +44,17 @@ class TeamsControllerTest {
   class getTeamList {
     @Test
     void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
-      final var teamList = List.of(new Team(1, "テストチーム"));
+      final List<Team> teamList = IntStream.range(0,3)
+          .mapToObj(i -> new Team(i, "テストチーム" + i))
+          .collect(Collectors.toList());
       final String expectResponseJson = mapper.writeValueAsString(new TeamListResponse(teamList));
-      Mockito.doReturn(teamList).when(teamsService).getTeamList(TeamSort.DESC_GAMES, 0, 3);
+      Mockito.doReturn(teamList).when(teamsService).getTeamList(0, 3);
 
       mockMvc.perform(MockMvcRequestBuilders.get("/v1/teams"))
           .andExpect(MockMvcResultMatchers.status().isOk())
           .andExpect(content().json(expectResponseJson));
 
-      Mockito.verify(teamsService, Mockito.times(1)).getTeamList(TeamSort.DESC_GAMES, 0, 3);
+      Mockito.verify(teamsService, Mockito.times(1)).getTeamList(0, 3);
     }
   }
 
@@ -61,9 +62,7 @@ class TeamsControllerTest {
   class getGameListByTeamId {
     @Test
     void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
-      final List<Game> gameList = IntStream.range(0,2)
-          .mapToObj(GameCreator::createGame)
-          .collect(Collectors.toList());
+      final List<Game> gameList = createGameList(3);
       final String expectResponseJson = mapper.writeValueAsString(new GameListResponse(gameList));
       Mockito.doReturn(gameList).when(gamesService).getGameListByTeamId(1, 0, 3);
 

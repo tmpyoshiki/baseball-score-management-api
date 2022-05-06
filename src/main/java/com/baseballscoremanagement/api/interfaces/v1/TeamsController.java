@@ -2,9 +2,8 @@ package com.baseballscoremanagement.api.interfaces.v1;
 
 import com.baseballscoremanagement.api.application.GamesService;
 import com.baseballscoremanagement.api.application.TeamsService;
-import com.baseballscoremanagement.api.domain.sort.TeamSort;
 import com.baseballscoremanagement.api.interfaces.v1.response.game.GameListResponse;
-import com.baseballscoremanagement.api.interfaces.v1.response.TeamListResponse;
+import com.baseballscoremanagement.api.interfaces.v1.response.team.TeamListResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,19 +24,16 @@ public class TeamsController {
 
   /**
    * チーム一覧取得
-   * @param sort　ソート順
    * @param start 取得開始位置
    * @param results 取得数
    * @return チーム一覧
    */
   @GetMapping("/teams")
   public TeamListResponse getTeamList(
-    @RequestParam(value = "sort", defaultValue = "DESC_GAMES") final String sort,
     @RequestParam(value = "start", defaultValue = "0") final int start,
     @RequestParam(value = "results", defaultValue = "3") final int results
   ){
-    final var teamSort = TeamSort.valueOf(sort);
-    final var teamList = this.teamsService.getTeamList(teamSort, start, results);
+    final var teamList = this.teamsService.getTeamList(start, results);
     return new TeamListResponse(teamList);
   }
 

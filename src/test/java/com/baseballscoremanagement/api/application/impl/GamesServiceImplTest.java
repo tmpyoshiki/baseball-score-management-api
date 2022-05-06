@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.baseballscoremanagement.api.helper.game.GameCreator.createGameList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,16 +34,13 @@ class GamesServiceImplTest {
     void 取得した結果を正常に返すことができること() {
       final Flux<Game> actualGameFlux = Flux.range(0,2)
           .map(GameCreator::createGame);
-      final List<Game> expectGameList = IntStream.range(0,2)
-          .mapToObj(GameCreator::createGame)
-          .collect(Collectors.toList());
+      final List<Game> expectGameList = createGameList(2);
 
-      Mockito.doReturn(actualGameFlux).when(gamesRepository).getGameListByTeamId(1, 0, 5);
+      Mockito.doReturn(actualGameFlux).when(gamesRepository).getGameListByTeamId(1, 0, 2);
 
-      final var actualGameList = gamesServiceImpl.getGameListByTeamId(1, 0, 5);
-      assertEquals(expectGameList.size(), actualGameList.size());
-      IntStream.range(0,2).forEach(i -> assertEquals(expectGameList.get(i), actualGameList.get(i)));
-      Mockito.verify(gamesRepository, Mockito.times(1)).getGameListByTeamId(1, 0, 5);
+      final var actualGameList = gamesServiceImpl.getGameListByTeamId(1, 0, 2);
+      assertEquals(expectGameList, actualGameList);
+      Mockito.verify(gamesRepository, Mockito.times(1)).getGameListByTeamId(1, 0, 2);
     }
   }
 }
