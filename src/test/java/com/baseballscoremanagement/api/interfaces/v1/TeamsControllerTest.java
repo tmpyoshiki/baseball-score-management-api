@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.baseballscoremanagement.api.helper.game.GameCreator.createGameList;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,9 +63,7 @@ class TeamsControllerTest {
   class getGameListByTeamId {
     @Test
     void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
-      final List<Game> gameList = IntStream.range(0,2)
-          .mapToObj(GameCreator::createGame)
-          .collect(Collectors.toList());
+      final List<Game> gameList = createGameList(3);
       final String expectResponseJson = mapper.writeValueAsString(new GameListResponse(gameList));
       Mockito.doReturn(gameList).when(gamesService).getGameListByTeamId(1, 0, 3);
 

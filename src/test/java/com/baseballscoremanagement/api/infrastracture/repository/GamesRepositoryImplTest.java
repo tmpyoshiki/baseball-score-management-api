@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.baseballscoremanagement.api.helper.game.GameCreator.createGameList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,10 +34,7 @@ class GamesRepositoryImplTest {
   class getGameListByTeamId {
     @Test
     void DBから取得した結果を正しくGameに格納して上位層に返せていること() {
-      final List<Game> expectGameList
-          = IntStream.range(0,2)
-          .mapToObj(GameCreator::createGame)
-          .collect(Collectors.toList());
+      final List<Game> expectGameList = createGameList(2);
       final Flux<GameResponse> gameResponse
           = Flux.range(0,2)
           .map(GamesRepositoryImplTest.this::createGameResponse);
