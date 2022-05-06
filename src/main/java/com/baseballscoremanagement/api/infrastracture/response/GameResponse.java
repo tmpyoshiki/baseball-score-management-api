@@ -24,7 +24,7 @@ public class GameResponse {
   /**
    * 先攻チーム名
    */
-  private String first_team_name;
+  private final String first_team_name;
   /**
    * 後攻チームのID
    */
@@ -32,15 +32,15 @@ public class GameResponse {
   /**
    * 後攻チーム名
    */
-  private String second_team_name;
+  private final String second_team_name;
   /**
    * 試合開始時刻
    */
-  private Date start_date_time;
+  private final Date start_date_time;
   /**
    * 試合終了時刻
    */
-  private Date end_date_time;
+  private final Date end_date_time;
   /**
    * 球場のID
    */
@@ -48,6 +48,6 @@ public class GameResponse {
   /**
    * 球場名
    */
-  private String field_name;
+  private final String field_name;
 }
 
