@@ -1,8 +1,7 @@
 package com.baseballscoremanagement.api.infrastracture.repository;
 
-import com.baseballscoremanagement.api.domain.model.Field;
 import com.baseballscoremanagement.api.domain.model.Game;
-import com.baseballscoremanagement.api.domain.model.Team;
+import com.baseballscoremanagement.api.helper.game.GameCreator;
 import com.baseballscoremanagement.api.infrastracture.library.GamesMySqlLibrary;
 import com.baseballscoremanagement.api.infrastracture.response.GameResponse;
 import org.junit.jupiter.api.Nested;
@@ -36,7 +35,7 @@ class GamesRepositoryImplTest {
     void DBから取得した結果を正しくGameに格納して上位層に返せていること() {
       final List<Game> expectGameList
           = IntStream.range(0,2)
-          .mapToObj(GamesRepositoryImplTest.this::createGame)
+          .mapToObj(GameCreator::createGame)
           .collect(Collectors.toList());
       final Flux<GameResponse> gameResponse
           = Flux.range(0,2)
@@ -52,21 +51,6 @@ class GamesRepositoryImplTest {
           .verifyComplete();
       Mockito.verify(gamesMySqlLibrary, Mockito.times(1)).findGamesByTeamId(1, 0, 2);
     }
-  }
-
-  /**
-   * テスト用のGameを作成する
-   * @param id 試合IDなどテストデータに使うID(1以上を指定)
-   * @return {@link Game}
-   */
-  private Game createGame (final int id) {
-    final var firstTeam = new Team(1, "テストチーム1");
-    final var secondTeam = new Team(id + 1, "テストチーム2");
-    final var field = new Field(id, "テスト球場");
-    final var startDateTime = LocalDateTime.of(2000, 1,1,12,0);
-    final var endDateTime = LocalDateTime.of(2000, 1,1,14,0);
-
-    return new Game(id, firstTeam, secondTeam, field, startDateTime, endDateTime);
   }
 
   /**
