@@ -1,9 +1,13 @@
 package com.baseballscoremanagement.api.interfaces.v1;
 
+import com.baseballscoremanagement.api.application.GamesService;
 import com.baseballscoremanagement.api.application.TeamsService;
+import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
 import com.baseballscoremanagement.api.domain.sort.TeamSort;
+import com.baseballscoremanagement.api.helper.game.GameCreator;
 import com.baseballscoremanagement.api.interfaces.v1.response.TeamListResponse;
+import com.baseballscoremanagement.api.interfaces.v1.response.game.GameListResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,6 +22,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -29,6 +35,9 @@ class TeamsControllerTest {
 
   @MockBean
   private TeamsService teamsService;
+
+  @MockBean
+  private GamesService gamesService;
 
   private final ObjectMapper mapper = new ObjectMapper();
 
@@ -45,6 +54,24 @@ class TeamsControllerTest {
           .andExpect(content().json(expectResponseJson));
 
       Mockito.verify(teamsService, Mockito.times(1)).getTeamList(TeamSort.DESC_GAMES, 0, 3);
+    }
+  }
+
+  @Nested
+  class getGameListByTeamId {
+    @Test
+    void パラメータなしでリクエストしたときに取得した結果を返すことができること() throws Exception {
+      final List<Game> gameList = IntStream.range(0,2)
+          .mapToObj(GameCreator::createGame)
+          .collect(Collectors.toList());
+      final String expectResponseJson = mapper.writeValueAsString(new GameListResponse(gameList));
+      Mockito.doReturn(gameList).when(gamesService).getGameListByTeamId(1, 0, 3);
+
+      mockMvc.perform(MockMvcRequestBuilders.get("/v1/teams/{teamId}/games", 1))
+          .andExpect(MockMvcResultMatchers.status().isOk())
+          .andExpect(content().json(expectResponseJson));
+
+      Mockito.verify(gamesService, Mockito.times(1)).getGameListByTeamId(1, 0, 3);
     }
   }
 
