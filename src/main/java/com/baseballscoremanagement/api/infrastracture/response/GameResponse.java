@@ -3,8 +3,9 @@ package com.baseballscoremanagement.api.infrastracture.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * MySQLから取得したチームを格納するDTO
@@ -20,34 +21,42 @@ public class GameResponse {
   /**
    * 先攻チームのID
    */
-  private int first_team_id;
+  @Column("first_team_id")
+  private int firstTeamId;
   /**
    * 先攻チーム名
    */
-  private final String first_team_name;
+  @Column("first_team_name")
+  private final String firstTeamName;
   /**
    * 後攻チームのID
    */
-  private int second_team_id;
+  @Column("second_team_id")
+  private int secondTeamId;
   /**
    * 後攻チーム名
    */
-  private final String second_team_name;
+  @Column("second_team_name")
+  private final String secondTeamName;
   /**
    * 試合開始時刻
    */
-  private final Date start_date_time;
+  @Column("start_date_time")
+  private final LocalDateTime startDateTime;
   /**
    * 試合終了時刻
    */
-  private final Date end_date_time;
+  @Column("end_date_time")
+  private final LocalDateTime endDateTime;
   /**
    * 球場のID
    */
-  private int field_id;
+  @Column("field_id")
+  private int fieldId;
   /**
    * 球場名
    */
-  private final String field_name;
+  @Column("field_name")
+  private final String fieldName;
 }
 
