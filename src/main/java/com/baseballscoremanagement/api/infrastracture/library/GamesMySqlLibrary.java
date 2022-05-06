@@ -22,7 +22,7 @@ public interface GamesMySqlLibrary  extends ReactiveCrudRepository<GameResponse,
       "  SECOND_TEAMS.NAME AS SECOND_TEAM_NAME," +
       "  START_DATE_TIME," +
       "  END_DATE_TIME," +
-      "  FIELDS_ID," +
+      "  FIELD_ID," +
       "  FIELDS.NAME AS FIELD_NAME" +
       " FROM GAMES" +
       " INNER JOIN TEAMS AS FIRST_TEAMS" +
@@ -30,7 +30,7 @@ public interface GamesMySqlLibrary  extends ReactiveCrudRepository<GameResponse,
       " INNER JOIN TEAMS AS SECOND_TEAMS" +
       " ON GAMES.SECOND_TEAM_ID=SECOND_TEAMS.ID" +
       " INNER JOIN FIELDS" +
-      " ON GAMES.FIELDS_ID=FIELDS.ID" +
+      " ON GAMES.FIELD_ID=FIELDS.ID" +
       " WHERE FIRST_TEAM_ID=:teamId OR SECOND_TEAM_ID=:teamId" +
       " ORDER BY START_DATE_TIME DESC" +
       " LIMIT :results OFFSET :start;")

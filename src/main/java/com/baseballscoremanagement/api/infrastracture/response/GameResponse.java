@@ -44,10 +44,10 @@ public class GameResponse {
   /**
    * 球場のID
    */
-  private int fields_id;
+  private int field_id;
   /**
    * 球場名
    */
-  private String fields_name;
+  private String field_name;
 }
 
