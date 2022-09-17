@@ -21,23 +21,23 @@ public class GameResponse {
   /**
    * 先攻チームのID
    */
-  @Column("first_team_id")
-  private int firstTeamId;
+  @Column("bat_first_team_id")
+  private int batFirstTeamId;
   /**
    * 先攻チーム名
    */
-  @Column("first_team_name")
-  private final String firstTeamName;
+  @Column("bat_first_team_name")
+  private final String batFirstTeamName;
   /**
    * 後攻チームのID
    */
-  @Column("second_team_id")
-  private int secondTeamId;
+  @Column("field_first_team_id")
+  private int fieldFirstTeamId;
   /**
    * 後攻チーム名
    */
-  @Column("second_team_name")
-  private final String secondTeamName;
+  @Column("field_first_team_name")
+  private final String fieldFirstTeamName;
   /**
    * 試合開始時刻
    */

@@ -30,11 +30,11 @@ public class GamesRepositoryImpl implements GamesRepository {
    */
   private Game storeGameInfo (final GameResponse gameResponse) {
     final var gameId = gameResponse.getId();
-    final var firstTeam = new Team(gameResponse.getFirstTeamId(), gameResponse.getFirstTeamName());
-    final var secondTeam = new Team(gameResponse.getSecondTeamId()  , gameResponse.getSecondTeamName());
+    final var batFirstTeam = new Team(gameResponse.getBatFirstTeamId(), gameResponse.getBatFirstTeamName());
+    final var fieldFirstTeam = new Team(gameResponse.getFieldFirstTeamId()  , gameResponse.getFieldFirstTeamName());
     final var field = new Field(gameResponse.getFieldId(), gameResponse.getFieldName());
     final var startDateTime = gameResponse.getStartDateTime();
     final var endDateTime = gameResponse.getEndDateTime();
-    return new Game(gameId, firstTeam, secondTeam, field, startDateTime, endDateTime);
+    return new Game(gameId, batFirstTeam, fieldFirstTeam, field, startDateTime, endDateTime);
   }
 }

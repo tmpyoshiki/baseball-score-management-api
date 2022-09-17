@@ -25,14 +25,14 @@ public class GameResponse {
   /**
    * 先攻チーム情報
    */
-  @JsonProperty("first_team")
-  private final TeamResponse firstTeam;
+  @JsonProperty("bat_first_team")
+  private final TeamResponse batFirstTeam;
 
   /**
    * 後攻チーム情報
    */
-  @JsonProperty("second_team")
-  private final TeamResponse secondTeam;
+  @JsonProperty("field_first_team")
+  private final TeamResponse fieldFirstTeam;
 
   /**
    * 開催球場情報
@@ -58,18 +58,18 @@ public class GameResponse {
 
   public GameResponse(final Game game) {
     this.id = game.getId();
-    this.firstTeam = this.storeTeamResponse(game.getFirstTeam());
-    this.secondTeam = this.storeTeamResponse(game.getSecondTeam());
-    this.field = this.storeFieldResponse(game.getField());
+    this.batFirstTeam = this.setTeamResponse(game.getBatFirstTeam());
+    this.fieldFirstTeam = this.setTeamResponse(game.getFieldFirstTeam());
+    this.field = this.setFieldResponse(game.getField());
     this.startDateTime = game.getStartDateTime();
     this.endDateTime = game.getEndDateTime();
   }
 
-  private TeamResponse storeTeamResponse(final Team team) {
+  private TeamResponse setTeamResponse(final Team team) {
     return new TeamResponse(team.getId(), team.getName());
   }
 
-  private FieldResponse storeFieldResponse(final Field field) {
+  private FieldResponse setFieldResponse(final Field field) {
     return new FieldResponse(field.getId(), field.getName());
   }
 }

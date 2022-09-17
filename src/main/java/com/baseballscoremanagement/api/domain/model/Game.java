@@ -21,11 +21,11 @@ public class Game {
   /**
    * 先攻チーム
    */
-  private final Team firstTeam;
+  private final Team batFirstTeam;
   /**
    * 後攻チーム
    */
-  private final Team secondTeam;
+  private final Team fieldFirstTeam;
   /**
    * 開催球場
    */
