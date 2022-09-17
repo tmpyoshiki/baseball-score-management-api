@@ -6,8 +6,6 @@ import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 import org.springframework.r2dbc.core.DatabaseClient;
 import reactor.test.StepVerifier;
 
-import java.sql.Date;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -35,14 +33,14 @@ class GamesMySqlLibraryTest {
         ")").then().block();
     this.client.sql("CREATE TABLE IF NOT EXISTS GAMES (" +
         "   ID int(11) NOT NULL AUTO_INCREMENT," +
-        "   FIRST_TEAM_ID int(4) NOT NULL," +
-        "   SECOND_TEAM_ID int(4) NOT NULL," +
+        "   BAT_FIRST_TEAM_ID int(4) NOT NULL," +
+        "   FIELD_FIRST_TEAM_ID int(4) NOT NULL," +
         "   START_DATE_TIME datetime DEFAULT NULL," +
         "   END_DATE_TIME datetime DEFAULT NULL," +
         "   FIELD_ID int(4) NOT NULL," +
         "  PRIMARY KEY (ID)," +
-        "  CONSTRAINT FK_FIRST_TEAM_ID FOREIGN KEY (FIRST_TEAM_ID) REFERENCES TEAMS (ID)," +
-        "  CONSTRAINT FK_SECOND_TEAM_ID FOREIGN KEY (SECOND_TEAM_ID) REFERENCES TEAMS (ID)," +
+        "  CONSTRAINT FK_BAT_FIRST_TEAM_ID FOREIGN KEY (BAT_FIRST_TEAM_ID) REFERENCES TEAMS (ID)," +
+        "  CONSTRAINT FK_FIELD_FIRST_TEAM_ID FOREIGN KEY (FIELD_FIRST_TEAM_ID) REFERENCES TEAMS (ID)," +
         "  CONSTRAINT FK_FIELD_ID FOREIGN KEY (FIELD_ID) REFERENCES FIELDS (ID)" +
         ")").then().block();
     this.client.sql("INSERT INTO TEAMS VALUES (1, 'テストチーム1');").then().block();
@@ -65,10 +63,10 @@ class GamesMySqlLibraryTest {
       final var findGamesFlux = gamesMySqlLibrary.findGamesByTeamId(1,0,3);
       StepVerifier.create(findGamesFlux).assertNext(gameResponse -> {
         assertEquals(1, gameResponse.getId());
-        assertEquals(1, gameResponse.getFirstTeamId());
-        assertEquals("テストチーム1", gameResponse.getFirstTeamName());
-        assertEquals(2, gameResponse.getSecondTeamId());
-        assertEquals("テストチーム2", gameResponse.getSecondTeamName());
+        assertEquals(1, gameResponse.getBatFirstTeamId());
+        assertEquals("テストチーム1", gameResponse.getBatFirstTeamName());
+        assertEquals(2, gameResponse.getFieldFirstTeamId());
+        assertEquals("テストチーム2", gameResponse.getFieldFirstTeamName());
         assertEquals(1, gameResponse.getFieldId());
         assertEquals("テストフィールド", gameResponse.getFieldName());
         assertEquals("2000-01-01T10:00", gameResponse.getStartDateTime().toString());
