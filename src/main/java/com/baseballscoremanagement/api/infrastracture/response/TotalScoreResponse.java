@@ -1,7 +1,9 @@
 package com.baseballscoremanagement.api.infrastracture.response;
 
+import lombok.Getter;
 import org.springframework.data.relational.core.mapping.Column;
 
+@Getter
 public class TotalScoreResponse {
   /**
    * 先攻チームかどうか

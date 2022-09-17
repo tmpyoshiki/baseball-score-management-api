@@ -18,7 +18,7 @@ public interface ScoresMySqlLibrary extends ReactiveCrudRepository<TotalScoreRes
       "IS_TOP_OF_INNING, " +
       "SUM(SCORE) AS TOTAL_SCORE " +
       "FROM SCORES " +
-      "WHERE GAME_ID=2 " +
+      "WHERE GAME_ID=:gameId " +
       "GROUP BY GAME_ID,IS_TOP_OF_INNING;")
   Flux<TotalScoreResponse> findTotalScoreByGameId(int gameId);
 }
