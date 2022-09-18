@@ -15,10 +15,25 @@ public interface ScoresMySqlLibrary extends ReactiveCrudRepository<TotalScoreRes
    * @return {@link TotalScoreResponse}
    */
   @Query("SELECT " +
+      "GAME_ID, " +
       "IS_TOP_OF_INNING, " +
       "SUM(SCORE) AS TOTAL_SCORE " +
       "FROM SCORES " +
       "WHERE GAME_ID=:gameId " +
       "GROUP BY GAME_ID,IS_TOP_OF_INNING;")
   Flux<TotalScoreResponse> findTotalScoreByGameId(int gameId);
+
+  /**
+   * 指定試合の合計得点を取得
+   * @param gameIdListAsString 試合ID
+   * @return {@link TotalScoreResponse}
+   */
+  @Query("SELECT " +
+      "GAME_ID, " +
+      "IS_TOP_OF_INNING, " +
+      "SUM(SCORE) AS TOTAL_SCORE " +
+      "FROM SCORES " +
+      "IN (:gameIdListAsString)" +
+      "GROUP BY GAME_ID,IS_TOP_OF_INNING;")
+  Flux<TotalScoreResponse> findTotalScoreByGameIds(final String gameIdListAsString);
 }
