@@ -59,4 +59,3 @@ public class GameResponse {
   @Column("field_name")
   private final String fieldName;
 }
-
