@@ -3,6 +3,7 @@ package com.baseballscoremanagement.api.interfaces.v1.response.game;
 import com.baseballscoremanagement.api.domain.model.Field;
 import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
+import com.baseballscoremanagement.api.domain.model.TotalScore;
 import com.baseballscoremanagement.api.interfaces.v1.response.team.TeamResponse;
 import com.baseballscoremanagement.api.interfaces.v1.response.field.FieldResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -56,6 +57,12 @@ public class GameResponse {
   @JsonProperty("end_date_time")
   private final LocalDateTime endDateTime;
 
+  /**
+   * スコア情報
+   */
+  @JsonProperty("total_score")
+  private final TotalScoreResponse totalScore;
+
   public GameResponse(final Game game) {
     this.id = game.getId();
     this.batFirstTeam = this.setTeamResponse(game.getBatFirstTeam());
@@ -63,6 +70,7 @@ public class GameResponse {
     this.field = this.setFieldResponse(game.getField());
     this.startDateTime = game.getStartDateTime();
     this.endDateTime = game.getEndDateTime();
+    this.totalScore = this.setTotalScoreResponse(game.getScore());
   }
 
   private TeamResponse setTeamResponse(final Team team) {
@@ -71,5 +79,9 @@ public class GameResponse {
 
   private FieldResponse setFieldResponse(final Field field) {
     return new FieldResponse(field.getId(), field.getName());
+  }
+
+  private TotalScoreResponse setTotalScoreResponse(final TotalScore totalScore) {
+    return new TotalScoreResponse(totalScore.getBatFirstTeamScore(), totalScore.getFieldFirstTeamScore());
   }
 }
