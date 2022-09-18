@@ -38,4 +38,8 @@ public class Game {
    * 終了時刻
    */
   private final LocalDateTime endDateTime;
+  /**
+   * スコア情報
+   */
+  private final TotalScore score;
 }
