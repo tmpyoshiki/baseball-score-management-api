@@ -30,11 +30,8 @@ public class GamesRepositoryImpl implements GamesRepository {
   public Flux<Game> getGameListByTeamId(int teamId, int start, int results) {
     final var gameListResponse = this.gamesMySqlLibrary.findGamesByTeamId(teamId, start, results);
     final var gameIdList = Objects.requireNonNull(gameListResponse.map(GameResponse::getId).collectList().block());
-    final var scoreResponseFlux = this.scoresMySqlLibrary.findTotalScoreByGameIds(getMultiIdQuery(gameIdList));
+    final var totalScoreResponseList = this.scoresMySqlLibrary.findTotalScoreByGameIds(getMultiIdQuery(gameIdList)).collectList().block();
     return gameListResponse.map(gameResponse -> {
-      final var totalScoreResponseList = scoreResponseFlux.filter(scoreResponse ->
-          gameResponse.getId() == scoreResponse.getGameId()
-      ).collect(Collectors.toList()).block();
       final var batFirstTeamScore = Objects.requireNonNull(totalScoreResponseList).stream().filter(TotalScoreResponse::isTopOfInning).findFirst().get();
       final var fieldFirstTeamScore = Objects.requireNonNull(totalScoreResponseList).stream().filter(totalScoreResponse -> !totalScoreResponse.isTopOfInning()).findFirst().get();
       return this.setGameInfo(gameResponse, batFirstTeamScore.getTotalScore(), fieldFirstTeamScore.getTotalScore());
