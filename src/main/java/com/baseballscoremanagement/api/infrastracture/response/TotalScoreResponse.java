@@ -5,6 +5,9 @@ import org.springframework.data.relational.core.mapping.Column;
 
 @Getter
 public class TotalScoreResponse {
+  @Column("game_id")
+  private int gameId;
+
   /**
    * 先攻チームかどうか
    */
