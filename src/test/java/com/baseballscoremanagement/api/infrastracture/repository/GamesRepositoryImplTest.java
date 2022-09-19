@@ -60,13 +60,16 @@ class GamesRepositoryImplTest {
     // gameIdごとにチームID, フィールドIDは変える
     final var startDateTime = LocalDateTime.of(2000, 1,1,12,0);
     final var endDateTime = LocalDateTime.of(2000, 1,1,14,0);
+    final var opponentTeamId = id + 1;
 
     return new GameResponse(
         id,
         1,
         "テストチーム1",
-        id + 1,
+        1,
+        opponentTeamId,
         "テストチーム2",
+        9,
         startDateTime,
         endDateTime,
         id,

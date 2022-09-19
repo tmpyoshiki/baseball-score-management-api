@@ -21,11 +21,11 @@ public class Game {
   /**
    * 先攻チーム
    */
-  private final Team firstTeam;
+  private final Team batFirstTeam;
   /**
    * 後攻チーム
    */
-  private final Team secondTeam;
+  private final Team fieldFirstTeam;
   /**
    * 開催球場
    */
@@ -38,4 +38,8 @@ public class Game {
    * 終了時刻
    */
   private final LocalDateTime endDateTime;
+  /**
+   * スコア情報
+   */
+  private final TotalScore score;
 }

@@ -3,6 +3,7 @@ package com.baseballscoremanagement.api.helper.game;
 import com.baseballscoremanagement.api.domain.model.Field;
 import com.baseballscoremanagement.api.domain.model.Game;
 import com.baseballscoremanagement.api.domain.model.Team;
+import com.baseballscoremanagement.api.domain.model.TotalScore;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +22,8 @@ public class GameCreator {
     final var field = new Field(id, "テスト球場");
     final var startDateTime = LocalDateTime.of(2000, 1,1,12,0);
     final var endDateTime = LocalDateTime.of(2000, 1,1,14,0);
-    return new Game(id, firstTeam, secondTeam, field, startDateTime, endDateTime);
+    final var totalScore = new TotalScore(1,9);
+    return new Game(id, firstTeam, secondTeam, field, startDateTime, endDateTime, totalScore);
   }
 
   /**
