@@ -29,6 +29,11 @@ public class GameResponse {
   @Column("bat_first_team_name")
   private final String batFirstTeamName;
   /**
+   * 先攻チームのスコア
+   */
+  @Column("bat_first_team_score")
+  private int batFirstTeamScore;
+  /**
    * 後攻チームのID
    */
   @Column("field_first_team_id")
@@ -38,6 +43,11 @@ public class GameResponse {
    */
   @Column("field_first_team_name")
   private final String fieldFirstTeamName;
+  /**
+   * 後攻チームのスコア
+   */
+  @Column("field_first_team_score")
+  private int fieldFirstTeamScore;
   /**
    * 試合開始時刻
    */
