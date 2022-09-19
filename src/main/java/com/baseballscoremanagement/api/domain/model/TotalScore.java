@@ -2,6 +2,7 @@ package com.baseballscoremanagement.api.domain.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class TotalScore {
   /**
    * 先攻チームのスコア
