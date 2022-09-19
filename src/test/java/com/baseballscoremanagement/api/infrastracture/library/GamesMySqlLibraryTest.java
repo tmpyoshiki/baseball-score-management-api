@@ -26,6 +26,13 @@ class GamesMySqlLibraryTest {
         "  `NAME` varchar(20) DEFAULT NULL," +
         "  PRIMARY KEY (ID)" +
         ")").then().block();
+    this.client.sql("CREATE TABLE `SCORES` (" +
+        "  `GAME_ID` int(11) NOT NULL," +
+        "  `INNING` int(1) NOT NULL," +
+        "  `IS_TOP_OF_INNING` tinyint(1) NOT NULL," +
+        "  `SCORE` int(2) NOT NULL," +
+        "  PRIMARY KEY (`GAME_ID`,`INNING`,`IS_TOP_OF_INNING`)" +
+        ")").then().block();
     this.client.sql("CREATE TABLE IF NOT EXISTS TEAMS (" +
         "  ID int(4) NOT NULL AUTO_INCREMENT," +
         "  NAME varchar(15) NOT NULL," +
@@ -47,6 +54,10 @@ class GamesMySqlLibraryTest {
     this.client.sql("INSERT INTO TEAMS VALUES (2, 'テストチーム2');").then().block();
     this.client.sql("INSERT INTO FIELDS VALUES (1, 'テストフィールド');").then().block();
     this.client.sql("INSERT INTO GAMES VALUES (1, 1, 2, '2000-01-01 10:00:00', '2000-01-01 12:00:00', 1);").then().block();
+    for (int i = 0; i<9; i++ ) {
+      this.client.sql("INSERT INTO SCORES VALUES (1, " + i + 1 + ", TRUE, 2);").then().block();
+      this.client.sql("INSERT INTO SCORES VALUES (1, " + i + 1 + ", FALSE, 1);").then().block();
+    }
   }
 
   @AfterEach
@@ -54,6 +65,7 @@ class GamesMySqlLibraryTest {
     this.client.sql("DELETE FROM GAMES;").then().block();
     this.client.sql("DELETE FROM TEAMS;").then().block();
     this.client.sql("DELETE FROM FIELDS;").then().block();
+    this.client.sql("DELETE FROM SCORES;").then().block();
   }
 
   @Nested
@@ -65,8 +77,10 @@ class GamesMySqlLibraryTest {
         assertEquals(1, gameResponse.getId());
         assertEquals(1, gameResponse.getBatFirstTeamId());
         assertEquals("テストチーム1", gameResponse.getBatFirstTeamName());
+        assertEquals(18, gameResponse.getBatFirstTeamScore());
         assertEquals(2, gameResponse.getFieldFirstTeamId());
         assertEquals("テストチーム2", gameResponse.getFieldFirstTeamName());
+        assertEquals(9, gameResponse.getFieldFirstTeamScore());
         assertEquals(1, gameResponse.getFieldId());
         assertEquals("テストフィールド", gameResponse.getFieldName());
         assertEquals("2000-01-01T10:00", gameResponse.getStartDateTime().toString());
